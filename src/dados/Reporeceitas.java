@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import beans.Receita;
@@ -119,6 +120,7 @@ public class Reporeceitas implements Serializable {
 	}
 	
 	
+	
 	@SuppressWarnings("resource")
 	private static Reporeceitas load(){
 
@@ -127,7 +129,7 @@ public class Reporeceitas implements Serializable {
 		Receita r = null;
 		
 		try {
-			Scanner sc = new Scanner(new FileReader("C://Users//leopk//Desktop//weka files IA//reshipejavafile.txt"))
+			Scanner sc = new Scanner(new FileReader("C://Users//leopk//Desktop//weka files IA//reshipejavafile2.txt"))
 					.useDelimiter("\\,");
 			
 			
@@ -145,7 +147,7 @@ public class Reporeceitas implements Serializable {
 					}
 					else
 					{
-						r.addIngre(lnsc.next());
+						r.addIngre(lnsc.next().toLowerCase());
 					}
 				
 			}
@@ -167,7 +169,6 @@ public class Reporeceitas implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 		return rep;
 	}

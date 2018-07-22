@@ -1,17 +1,11 @@
 package beans;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 
-import dados.Reporeceitas;
 
+public class Receita{
 
-public class Receita implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7923885572428766212L;
 	private String nome;
 	private ArrayList<String> ingredientes;
 	
@@ -19,6 +13,11 @@ public class Receita implements Serializable{
 	public Receita (String nome)
 	{
 		this.nome = nome;
+		this.ingredientes = new ArrayList<>();
+	}
+	
+	public Receita()
+	{
 		this.ingredientes = new ArrayList<>();
 	}
 	
@@ -44,7 +43,7 @@ public class Receita implements Serializable{
 	
 	}
 	
-	public ArrayList<String> listar()
+	public ArrayList<String> listarIngredientes()
 	{
 		return this.ingredientes;
 	}
