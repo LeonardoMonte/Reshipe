@@ -2,12 +2,15 @@ package dados;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import beans.Receita;
 import exceptions.Objectnotfound;
@@ -116,71 +119,57 @@ public class Reporeceitas implements Serializable {
 	}
 	
 	
+	@SuppressWarnings("resource")
 	private static Reporeceitas load(){
-		Reporeceitas repReceitas =  null;
 
-		File arquivoReceita = new File("RepoReceitas.dat");
-
-		FileInputStream fInput = null;
-		ObjectInputStream oInput = null;
-
-		try{
-			fInput = new FileInputStream(arquivoReceita);
-			oInput = new ObjectInputStream(fInput);
+		Reporeceitas rep = new Reporeceitas();
+		int contNome = 0;
+		Receita r = null;
+		
+		try {
+			Scanner sc = new Scanner(new FileReader("C://Users//leopk//Desktop//weka files IA//reshipejavafile.txt"))
+					.useDelimiter("\\,");
 			
-			Object o = oInput.readObject();
-
-			repReceitas = (Reporeceitas) o;
-
-		}catch(Exception e){
-			repReceitas = new Reporeceitas();
-		}finally{
-			if (oInput != null){
-				try{
-					oInput.close();
-				}catch(IOException e){
-					System.out.println("Não foi possível fechar o arquivo!");
+			
+			while(sc.hasNextLine())
+			{
+				String line = sc.nextLine();
+				Scanner lnsc = new Scanner(line).useDelimiter("\\,");
+				
+				while(lnsc.hasNext())
+				{
+					if(contNome == 0)
+					{
+						r = new Receita(lnsc.next());
+						contNome++;
+					}
+					else
+					{
+						r.addIngre(lnsc.next());
+					}
+				
+			}
+				
+				lnsc.close();
+				contNome = 0;
+				try {
+					rep.cadastrarReceita(r);
+				} catch (Objetojaexiste e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+							
 			}
-		}
-
-		return repReceitas;
-	}
-
-
-	public void save(){
-		if(instancia == null){
-			return;
-		}
-
-		File arquivoReceitas = new File("RepoReceitas.dat");
-		FileOutputStream fOutput =  null;
-		ObjectOutputStream oOutput = null;
-
-		try{
-			if(!arquivoReceitas.exists())
-				arquivoReceitas.createNewFile();
-
-			fOutput = new FileOutputStream(arquivoReceitas);
-			oOutput = new ObjectOutputStream(fOutput);
-			oOutput.writeObject(instancia);
-
-		}catch(Exception e){
+			
+			
+			sc.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-
-		}finally{
-			if(oOutput != null){
-				try{
-
-					oOutput.close();
-
-				}catch(IOException e){
-					e.printStackTrace();
-				}
-			}
 		}
+		
+		
+		return rep;
 	}
-	
 	
 }

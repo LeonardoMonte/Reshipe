@@ -35,13 +35,12 @@ public class Receita implements Serializable{
 	public void addIngre(String ing)
 	{
 		this.ingredientes.add(ing);
-		Reporeceitas.getInstancia().save();
+		
 	}
 	
 	public void removeIngre(String ing) 
 	{
 			this.removeIngre(ing);
-			Reporeceitas.getInstancia().save();
 	
 	}
 	

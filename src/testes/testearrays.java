@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.Receita;
-import dados.GerenReceitas;
 import dados.Reporeceitas;
 import exceptions.Objectnotfound;
 import exceptions.Objetojaexiste;
@@ -39,16 +38,8 @@ public class testearrays {
 	public static void main(String args[])
 	{
 		
-		
-        boolean espaco = " ".matches("\\d");
-        System.out.println("Possui espaço? "+espaco);
-		
-		
-	
-		
-	
-		
-		
+			
+		System.out.println(Reporeceitas.getInstancia().listarReceitas());
 		
 		
 	}
