@@ -8,17 +8,29 @@ public class Receita{
 
 	private String nome;
 	private ArrayList<String> ingredientes;
+	private double distancia;
 	
 	
 	public Receita (String nome)
 	{
 		this.nome = nome;
 		this.ingredientes = new ArrayList<>();
+		this.distancia = 0;
 	}
 	
 	public Receita()
 	{
 		this.ingredientes = new ArrayList<>();
+	}
+	
+	public double getDistancia()
+	{
+		return this.distancia;
+	}
+	
+	public void setDistancia(double distancia)
+	{
+		this.distancia = distancia;
 	}
 	
 	public String getNome()

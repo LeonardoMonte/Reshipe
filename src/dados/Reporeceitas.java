@@ -129,7 +129,7 @@ public class Reporeceitas implements Serializable {
 		Receita r = null;
 		
 		try {
-			Scanner sc = new Scanner(new FileReader("C://Users//leopk//Desktop//weka files IA//reshipejavafile2.txt"))
+			Scanner sc = new Scanner(new FileReader("C://Users//leopk//Desktop//weka files IA//reshipejavafile3.txt"))
 					.useDelimiter("\\,");
 			
 			

@@ -2,16 +2,10 @@ package beans;
 
 import java.util.ArrayList;
 
-public class ReceitasNormalizadas {
+public class ReceitasNormalizadas extends Receita {
 	
 	private String nome;
 	private ArrayList<Integer> ingredientes;
-	
-	
-	@Override
-	public String toString() {
-		return "ReceitasNormalizadas [nome=" + nome + ", ingredientes=" + ingredientes + "]  \n";
-	}
 
 	public ReceitasNormalizadas()
 	{
@@ -20,10 +14,13 @@ public class ReceitasNormalizadas {
 	
 	public ReceitasNormalizadas(String nome)
 	{
-		this.nome = nome;
+		super(nome);
 		this.ingredientes = new ArrayList<>();
+
 	}
 
+
+	
 	public String getNome() {
 		return nome;
 	}
