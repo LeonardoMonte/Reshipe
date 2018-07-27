@@ -53,11 +53,36 @@ public class KNN {
 		
 		for(int x = 0 ; x < array.size() ; x++)
 		{
+			
 			int local = this.comparador.indexOf(array.get(x));
-			retorno.set(local, 1);
+			if(local != -1)
+			{
+				retorno.set(local, 1);
+			}
+			
 		}
 		
 		return retorno;
+	}
+	
+	public void distanciaEuclidiana( ArrayList<Integer> ReceitaRecebida , ArrayList<Receita> distancia)
+	{
+		 double dist = 0;
+	 	 
+		 for(int x = 0 ; x < this.receitasNorm.size() ; x++)
+		 {	  
+			 dist = 0;
+			 for(int y = 0 ; y < this.comparador.size() ; y++)
+			 {			 
+				double local = this.receitasNorm.get(x).getIngredientes().get(y) - ReceitaRecebida.get(y);
+				dist += Math.pow(local, 2);
+				local = 0;
+			 }
+			 
+			 dist = Math.sqrt(dist);
+			 distancia.get(x).setDistancia(dist);		
+			 dist = 0;
+		 }
 	}
 	
 	
@@ -69,43 +94,96 @@ public class KNN {
 		System.out.println("Receitas possiveis:");
 		for(int x = 0 ; x < k ; x++)
 		{
-			System.out.println("1 - " + r.get(x).getNome());
+			System.out.println("--- " + r.get(x).getNome());
+			System.out.println(r.get(x).listarIngredientes());
+			System.out.println();
 		}
 		
 	}
 	
+	public void DistanciaMatch(ArrayList<Receita> distancia , ArrayList<Integer> ReceitaRecebida )
+	{
+		int match = 0;
+		
+		for(int x = 0 ; x < this.receitasNorm.size();  x++)
+		{
+			match = 0;
+			for(int y = 0; y < this.comparador.size() ; y++)
+			{
+				if(this.receitasNorm.get(x).getIngredientes().get(y) == 1 && ReceitaRecebida.get(y) == 1)
+				{
+					match++;
+				}
+			}
+			
+			System.out.println(match);
+			
+			distancia.get(x).setDistancia(match);
+		}
+		
+	}
 	
-	 public ArrayList<Receita> knn(ArrayList<String> array, int k)
-	 {
-		 ArrayList<Receita> rec = new ArrayList<>();
-		 ArrayList<Integer> receitaRecebida = this.normalizerReceitaRecebida(array);
-		 ArrayList<Receita> distancias = Reporeceitas.getInstancia().listarReceitas();
-		 double dist = 0;
-		 
-		 System.out.println(receitaRecebida);
-		 	 
-		 for(int x = 0 ; x < this.receitasNorm.size() ; x++)
-		 {	  
-			 for(int y = 0 ; y < this.comparador.size() ; y++)
+	public void DistanciaPearson(ArrayList<Receita> distancia , ArrayList<Integer> ReceitaRecebida)
+	{
+		ArrayList<Double> xmedio;
+		double ymedio;
+		for(int i = 0; i < this.receitasNorm.size(); i++)
+		{
+			
+		
+			
+		}
+	}
+	
+	public void DistanciaHamming(ArrayList<Receita> distancia , ArrayList<Integer> ReceitaRecebida)
+	{
+		
+		int xor = 0;
+		
+		for(int x = 0 ; x < this.receitasNorm.size();  x++)
+		{
+			xor = 0;
+			for(int y = 0; y < this.comparador.size() ; y++)
+			{
+				if(this.receitasNorm.get(x).getIngredientes().get(y) != ReceitaRecebida.get(y))
+				{
+					xor++;
+				}
+			}
+			
+			System.out.println(xor);
+			
+			distancia.get(x).setDistancia(xor);
+		}
+	}
+	
+	public void MaiorDistancia(ArrayList<Receita> rec , int k, ArrayList<Receita> distancias)
+	{
+		int menor = 0;
+		
+		 for(int x = 0 ; x < k ; x++)
+		 {
+			 menor = 0;
+			 
+			 for(int y = 0 ; y < distancias.size(); y++)
 			 {			 
-				double local = this.receitasNorm.get(x).getIngredientes().get(y) - receitaRecebida.get(y);
-				dist += Math.pow(local, 2);
+				 if(distancias.get(menor).getDistancia() <= distancias.get(y).getDistancia())
+				 {
+					 menor = y;
+				 }
+
 			 }
 			 
-			 dist = Math.sqrt(dist);
+			rec.add(distancias.get(menor));	
+			distancias.remove(menor);
 			 
-			 System.out.println(dist);
-			 
-			 distancias.get(x).setDistancia(dist);		
-			 dist = 0;
 		 }
-		 
-		 
-		 int menor = 0;
-		 System.out.println(distancias.size());
-		 
+	}
+	
+	public void MenorDistancia(ArrayList<Receita> rec , int k, ArrayList<Receita> distancias)
+	{
+		int menor = 0;
 		
-		 
 		 for(int x = 0 ; x < k ; x++)
 		 {
 			 menor = 0;
@@ -119,13 +197,22 @@ public class KNN {
 
 			 }
 			 
-			System.out.println(menor);
-			System.out.println("DISTANCIA DO MENOR: " + distancias.get(menor).getDistancia());
 			rec.add(distancias.get(menor));	
 			distancias.remove(menor);
 			 
 		 }
+	}
+	
+	
+	 public ArrayList<Receita> knn(ArrayList<String> array, int k)
+	 {
+		 ArrayList<Receita> rec = new ArrayList<>();
+		 ArrayList<Integer> receitaRecebida = this.normalizerReceitaRecebida(array);
+		 ArrayList<Receita> distancias = Reporeceitas.getInstancia().listarReceitas();
 		 
+		this.DistanciaMatch(distancias , receitaRecebida);
+		 
+		this.MaiorDistancia(rec, k, distancias);
 		 
 		 return rec;
 	 }

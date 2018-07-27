@@ -160,15 +160,55 @@ public class testearrays {
 	
 		
 		ArrayList<String> ingre = new ArrayList<>();
-//		ingre.add("fava de baunilha");
-//		ingre.add("leite integral");
-//		ingre.add("leite condensado");
-//		ingre.add("ovos");
+//		ingre.add("tomate");
+/*		ingre.add("ovos");
+		ingre.add("ovos");
+		
+		ingre.add("acucar");
+		ingre.add("leite condensado");
 //		ingre.add("acucar demerara");
-		ingre.add("mariana");
-		ingre.add("lala");
+//		ingre.add("emilia");
+	//	ingre.add("leonardo");
+		ingre.add("manteiga");
+		
+
+		ingre.add("ovos");
+		ingre.add("queijo cheddar");
+		ingre.add("sal");
+		ingre.add("pimenta-do-reino");
+		ingre.add("manjericao");
+		ingre.add("farinha de trigo");
+	
+		
+		
+		ingre.add("leite condensado");
+		ingre.add("ovos");
+		ingre.add("raspas de laranja");
+		ingre.add("acucar");
+		*/
+		
+		
+		ingre.add("ovos");
+		ingre.add("trigo");
+		ingre.add("manteiga");
+		ingre.add("queijo ralado");
+		
+	
+
+		
+		
+		
+
+	
+		
+	
+
 		System.out.println(ingre);
-		System.out.println(KNN.getInstancia().knn(ingre, 3));
+		KNN.getInstancia().knnOut(ingre,10);
+//		System.out.println(KNN.getInstancia().listarReceitasNormalizadas().get(102).getIngredientes());
+//		
+//		System.out.println(KNN.getInstancia().listarIngredientesCadastrados().size());
+//		System.out.println(KNN.getInstancia().listarIngredientesCadastrados());
 		
 		
 
