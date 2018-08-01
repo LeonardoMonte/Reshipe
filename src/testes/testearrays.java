@@ -179,19 +179,19 @@ public class testearrays {
 		ingre.add("manjericao");
 		ingre.add("farinha de trigo");
 	
-		
-		
+				ingre.add("ovos");
+		ingre.add("trigo");
+		ingre.add("manteiga");
+		ingre.add("queijo ralado");
+		*/
 		ingre.add("leite condensado");
 		ingre.add("ovos");
 		ingre.add("raspas de laranja");
 		ingre.add("acucar");
-		*/
 		
 		
-		ingre.add("ovos");
-		ingre.add("trigo");
-		ingre.add("manteiga");
-		ingre.add("queijo ralado");
+		
+
 		
 	
 
