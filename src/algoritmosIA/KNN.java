@@ -54,6 +54,20 @@ public class KNN {
 
 		return retorno;
 	}
+	
+	public void distanciaManhattan(ArrayList<Integer> ReceitaRecebida, ArrayList<Receita> distancia)
+	{
+		for(int x = 0 ; x < this.receitasNorm.size(); x++)
+		{
+			double dist = 0;
+			for(int y = 0 ; y < this.comparador.size() ; y++)
+			{
+				dist += Math.abs(this.receitasNorm.get(x).getIngredientes().get(y) - ReceitaRecebida.get(y));
+			}
+			
+			distancia.get(x).setDistancia(dist);
+		}
+	}
 
 	public void distanciaEuclidiana(ArrayList<Integer> ReceitaRecebida, ArrayList<Receita> distancia) {
 		double dist = 0;
@@ -101,7 +115,7 @@ public class KNN {
 		}
 
 	}
-	
+
 	// PEARSON
 
 	public ArrayList<Double> mediaArrayNormalizado(ArrayList<ReceitasNormalizadas> array) {
@@ -176,7 +190,7 @@ public class KNN {
 
 			somatoriovarY += Math.pow((ReceitaRecebida.get(x) - ymedio), 2);
 		}
-		
+
 		somatoriovarY = Math.sqrt(somatoriovarY);
 
 		return somatoriovarY;
@@ -189,18 +203,17 @@ public class KNN {
 		ArrayList<Double> somatoriocov = this.SomatorioCov(xmedio, ymedio, ReceitaRecebida);
 		ArrayList<Double> somatoriovarX = this.SomatorioVarX(xmedio, ReceitaRecebida);
 		double somatoriovarY = this.SomatorioVarY(ymedio, ReceitaRecebida);
-		
-		for(int x = 0 ; x < this.receitasNorm.size() ; x++)
-		{
+
+		for (int x = 0; x < this.receitasNorm.size(); x++) {
 			double distancia2 = 0;
-			
-			distancia2 = (somatoriocov.get(x)/(somatoriovarX.get(x) * somatoriovarY));
+
+			distancia2 = (somatoriocov.get(x) / (somatoriovarX.get(x) * somatoriovarY));
 			System.out.println(distancia2);
-			distancia.get(x).setDistancia(distancia2);	
+			distancia.get(x).setDistancia(distancia2);
 		}
 
 	}
-	
+
 	// END PEARSON
 
 	public void DistanciaHamming(ArrayList<Receita> distancia, ArrayList<Integer> ReceitaRecebida) {
@@ -233,7 +246,7 @@ public class KNN {
 				}
 
 			}
-			System.out.println("Distancia : " + maior + "valor : " + distancias.get(maior).getDistancia());
+			System.out.println("Distancia maior : " + maior + "valor : " + distancias.get(maior).getDistancia());
 			rec.add(distancias.get(maior));
 			distancias.remove(maior);
 
@@ -252,7 +265,8 @@ public class KNN {
 				}
 
 			}
-
+			System.out.println("Distancia menor : " + menor + "valor : " + distancias.get(menor).getDistancia()
+					+ "ingre" + distancias.get(menor));
 			rec.add(distancias.get(menor));
 			distancias.remove(menor);
 
@@ -264,9 +278,11 @@ public class KNN {
 		ArrayList<Integer> receitaRecebida = this.normalizerReceitaRecebida(array);
 		ArrayList<Receita> distancias = Reporeceitas.getInstancia().listarReceitas();
 
-		this.DistanciaPearson(distancias, receitaRecebida);
+		this.distanciaManhattan(receitaRecebida, distancias);
+		
+		this.MenorDistancia(rec, k, distancias);
 
-		this.MaiorDistancia(rec, k, distancias);
+		
 
 		return rec;
 	}
@@ -279,10 +295,6 @@ public class KNN {
 
 				int local = this.comparador
 						.indexOf(Reporeceitas.getInstancia().listarReceitas().get(x).listarIngredientes().get(y));
-				// System.out.println(Reporeceitas.getInstancia().listarReceitas().get(x).listarIngredientes().get(y)
-				// + " " + x);
-				// System.out.println("ESTOU AQUIIII");
-				// System.out.println(local);
 				rec.get(x).getIngredientes().set(local, 1);
 
 			}
