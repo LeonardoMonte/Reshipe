@@ -101,6 +101,8 @@ public class KNN {
 		}
 
 	}
+	
+	// PEARSON
 
 	public ArrayList<Double> mediaArrayNormalizado(ArrayList<ReceitasNormalizadas> array) {
 		ArrayList<Double> xmedio = new ArrayList<>();
@@ -198,6 +200,8 @@ public class KNN {
 		}
 
 	}
+	
+	// END PEARSON
 
 	public void DistanciaHamming(ArrayList<Receita> distancia, ArrayList<Integer> ReceitaRecebida) {
 
