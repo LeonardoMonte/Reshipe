@@ -190,21 +190,10 @@ public class testearrays {
 		ingre.add("acucar");
 		
 		
-		
-
-		
-	
-
-		
-		
-		
-
-	
-		
 	
 
 		System.out.println(ingre);
-		KNN.getInstancia().knnOut(ingre,10);
+		KNN.getInstancia().knnOut(ingre,20);
 //		System.out.println(KNN.getInstancia().listarReceitasNormalizadas().get(102).getIngredientes());
 //		
 //		System.out.println(KNN.getInstancia().listarIngredientesCadastrados().size());

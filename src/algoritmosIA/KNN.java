@@ -93,6 +93,7 @@ public class KNN {
 		for (int x = 0; x < k; x++) {
 			System.out.println("--- " + r.get(x).getNome());
 			System.out.println(r.get(x).listarIngredientes());
+			System.out.println("Distancia: " + r.get(x).getDistancia() + " Porcentagem de match: " + r.get(x).getPorcentagem());
 			System.out.println();
 		}
 
@@ -108,8 +109,6 @@ public class KNN {
 					match++;
 				}
 			}
-
-			System.out.println(match);
 
 			distancia.get(x).setDistancia(match);
 		}
@@ -208,7 +207,6 @@ public class KNN {
 			double distancia2 = 0;
 
 			distancia2 = (somatoriocov.get(x) / (somatoriovarX.get(x) * somatoriovarY));
-			System.out.println(distancia2);
 			distancia.get(x).setDistancia(distancia2);
 		}
 
@@ -228,8 +226,6 @@ public class KNN {
 				}
 			}
 
-			System.out.println(xor);
-
 			distancia.get(x).setDistancia(xor);
 		}
 	}
@@ -246,7 +242,7 @@ public class KNN {
 				}
 
 			}
-			System.out.println("Distancia maior : " + maior + "valor : " + distancias.get(maior).getDistancia());
+			
 			rec.add(distancias.get(maior));
 			distancias.remove(maior);
 
@@ -265,12 +261,32 @@ public class KNN {
 				}
 
 			}
-			System.out.println("Distancia menor : " + menor + "valor : " + distancias.get(menor).getDistancia()
-					+ "ingre" + distancias.get(menor));
+
 			rec.add(distancias.get(menor));
 			distancias.remove(menor);
 
 		}
+	}
+	
+	public void PorcentagemMatch(ArrayList<Receita> distancia, ArrayList<Integer> ReceitaRecebida)
+	{
+		int match = 0;
+		double porcentagem = 0;
+
+		for (int x = 0; x < this.receitasNorm.size(); x++) {
+			match = 0;
+			porcentagem = 0;
+			for (int y = 0; y < this.comparador.size(); y++) {
+				if (this.receitasNorm.get(x).getIngredientes().get(y) == 1 && ReceitaRecebida.get(y) == 1) {
+					match++;
+				}
+			}
+
+			porcentagem = ((100*match)/distancia.get(x).listarIngredientes().size());
+
+			distancia.get(x).setPorcentagem(porcentagem);
+		}
+		
 	}
 
 	public ArrayList<Receita> knn(ArrayList<String> array, int k) {
@@ -278,11 +294,13 @@ public class KNN {
 		ArrayList<Integer> receitaRecebida = this.normalizerReceitaRecebida(array);
 		ArrayList<Receita> distancias = Reporeceitas.getInstancia().listarReceitas();
 
-		this.distanciaManhattan(receitaRecebida, distancias);
+		this.DistanciaPearson(distancias, receitaRecebida);
 		
-		this.MenorDistancia(rec, k, distancias);
+		this.PorcentagemMatch(distancias, receitaRecebida);
+		
+		this.MaiorDistancia(rec, k, distancias);
 
-		
+		 
 
 		return rec;
 	}

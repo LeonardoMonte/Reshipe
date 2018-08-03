@@ -7,15 +7,27 @@ public class Receita {
 	private String nome;
 	private ArrayList<String> ingredientes;
 	private double distancia;
+	private double porcentagem;
 
 	public Receita(String nome) {
 		this.nome = nome;
 		this.ingredientes = new ArrayList<>();
 		this.distancia = 0;
+		this.porcentagem = 0;
 	}
 
 	public Receita() {
 		this.ingredientes = new ArrayList<>();
+	}
+	
+	public double getPorcentagem()
+	{
+		return this.porcentagem;
+	}
+	
+	public void setPorcentagem(double porcentagem)
+	{
+		this.porcentagem = porcentagem;
 	}
 
 	public double getDistancia() {
